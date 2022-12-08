@@ -1,0 +1,50 @@
+//Создать образ с тегамаи latest и 1.0, название репозитория myapp
+docker build -t myapp:latest -t myapp:1.0 . 
+
+//Просмотреть образы
+docker images
+
+//создать докер с удалением после остановки (--rm) с названием контейнера (app1) на свободном порту (-P) образ (myapp:latest)
+docker run -itd --rm --name app1 -P myapp:latest
+
+//Просмотр запущенных контейнеров/всех контейнеров (-a)
+docker ps -a
+
+// Остановить запущенный контейнер с ID image
+docker stop 58708a6d2d9f  
+ss
+//Удалить контейнер с ID image
+docker rm 58708a6d2d9f 
+
+//Остановить все запущенные контейнеры
+docker stop $(docker ps -a -q)
+
+//Создаем докер и меняем значение @Value("${inst.num:1}") - за это отвечает (-e INST_NUM=3)
+docker run -itd --rm -e INST_NUM=3 --name app1 -P myapp:latest
+
+//Посмотреть логи контейнера с именем контейнера (app_stop)
+docker logs app_stop 
+
+//Зацепиться к запущенному контейнеру с ID e1a716956646
+docker attach e1a716956646
+Сочетание клавиш Ctrl+C оставновит контейнер в режиме attach
+
+//Безопасно зайти в контейнер 
+docker exec -it c8d70af0a0ff /bin/sh
+# ls
+# env
+# ps aux   (получаем процессы и можем убить наш главный	# kill 1)
+# exit     (просто выйти из контейнера без его завершения)
+
+//Запустить все содержимое файла (docker-compose.yaml)
+docker-compose up -d
+
+//Остановитьвсе compose
+docker-compose down
+
+//Запустить отдельный контейнер
+docker-compose up -d app1
+
+
+
+
