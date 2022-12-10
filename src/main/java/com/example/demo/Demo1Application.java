@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @SpringBootApplication
 public class Demo1Application {
-    @Value("${inst.num:1}")
-    private int num;
+//    @Value("${inst.num:1}")
+//    private int num;
 
     public static void main(String[] args) {
         SpringApplication.run(Demo1Application.class, args);
     }
 
-    @GetMapping()
+    @GetMapping("/")
     public String hello() {
-        return String.format("Hello from app %d ver 2.0\n", num);
+        return "Hello from container ver 2.0\n";
     }
 
 
