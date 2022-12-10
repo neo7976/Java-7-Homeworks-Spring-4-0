@@ -7,22 +7,27 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
+@Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class Demo1ApplicationTests {
     @Autowired
     private TestRestTemplate restTemplate;
-
+    @Container
     private final GenericContainer<?> myAppFirst = new GenericContainer<>("tcapp:1.0")
             .withExposedPorts(8080);
-    private final GenericContainer<?> myAppSecond = new GenericContainer<>("tcapp:2.0")
+    @Container
+    //static создает один контейнер на все тесты. Без него - 1 тест = 1 новый контейнер
+    private static final GenericContainer<?> myAppSecond = new GenericContainer<>("tcapp:2.0")
             .withExposedPorts(8080);
-
-    @BeforeEach
-    void setUp() {
-        myAppFirst.start();
-        myAppSecond.start();
-    }
+// Не требуется за счёт аннотаций @Testcontainers
+//    @BeforeEach
+//    void setUp() {
+//        myAppFirst.start();
+//        myAppSecond.start();
+//    }
 
 
     @Test
